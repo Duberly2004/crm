@@ -57,7 +57,7 @@ ROOT_URLCONF = 'project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR, 'templates/',],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-print(BASE_DIR)
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -136,12 +135,11 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Replace with your
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-if DEBUG:
-    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-    STATIC_URL = '/static/'
-else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+if not DEBUG:
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
