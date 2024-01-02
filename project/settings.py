@@ -5,7 +5,7 @@ import dj_database_url
 load_dotenv()
  
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -136,18 +136,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Replace with your
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-print(f'el debug es {DEBUG}') 
-STATIC_URL = 'static/'
-if not DEBUG:
-    # Tell Django to copy statics to the `staticfiles` directory
-    # in your application directory on Render.
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_URL = '/static/'
+else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-    # Turn on storage backend that takes care of compressing static files
-    # and creating unique names for each version so they can safely be cached forever.
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
