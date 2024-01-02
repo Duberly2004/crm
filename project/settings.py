@@ -2,7 +2,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import dj_database_url
-
+from decouple import config
 load_dotenv()
  
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -73,7 +73,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-
+print(BASE_DIR)
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
@@ -137,6 +137,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  # Replace with your
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
+print(f'el debug es {DEBUG}') 
 STATIC_URL = 'static/'
 if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
@@ -146,7 +147,6 @@ if not DEBUG:
     # Turn on storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
